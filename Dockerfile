@@ -1,4 +1,4 @@
-FROM debian:bullseye
+FROM debian:stable
 
 # - Minimal requirements to build a Linux kernel
 #     https://docs.kernel.org/process/changes.html#current-minimal-requirements
