@@ -13,7 +13,7 @@ RUN apt-get update -y && apt-get install -y \
     bsdmainutils ccache bc sphinx-common sphinx-doc cpio lz4 liblz4-tool \
     pkg-config zstd git curl time python3 libc6-dev-i386 libc6-i386
 
-WORKDIR /home
+WORKDIR /srv/local/grandria
 
 CMD \
     if [ ! -d linux-5.13.tar.gz ] ; then \
