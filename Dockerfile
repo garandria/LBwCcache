@@ -29,6 +29,9 @@ CMD \
     git clone https://github.com/garandria/LBwCcache.git; \
     git checkout test
 
+CMD \
+    cp -r LBwCcache/b1 . \
+    python3 LBwCcache/main.py --linux-src linux-5.13 --configurations b1
 
 # CMD tar -xf linux-5.13.tar.gz ; cd linux-5.13 ; echo "CONFIG_64BIT=y" > config-base ; \
 #     KCONFIG_ALLCONFIG=config-base make randconfig ; make -j96
