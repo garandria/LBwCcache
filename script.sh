@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source /etc/profile.d/module.sh
+source /etc/profile.d/modules.sh
 set -x
 module load singularity
 
