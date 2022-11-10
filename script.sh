@@ -1,0 +1,13 @@
+#!/bin/bash
+
+source /etc/profile.d/module.sh
+set -x
+module load singularity
+
+if [ ! -d /srv/local/grandria ] ; then
+    mkdir /srv/local/grandria
+fi
+
+cd /srv/local/grandria/
+singularity build build-env.sif docker://garandria/build-env
+singularity run build-env.sif
