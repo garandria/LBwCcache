@@ -9,5 +9,5 @@ if [ ! -d /srv/local/grandria ] ; then
 fi
 
 cd /srv/local/grandria/
-singularity build build-env.sif docker://garandria/build-env
+singularity build -F build-env.sif docker://garandria/build-env
 singularity run build-env.sif
