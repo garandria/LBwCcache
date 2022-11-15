@@ -9,7 +9,15 @@ if [ ! -d /srv/local/grandria ] ; then
 fi
 
 cd /srv/local/grandria/
-# https://hub.docker.com/r/kernelci/build-base
-wget https://raw.githubusercontent.com/garandria/LBwCcache/master/prog.py
-singularity build -F kernelci-build-base.sif docker://kernelci/build-base
-singularity run --bind /srv/local/grandria:/srv/local/grandria kernelci-build-base.sif
+
+if [ ! -d linux-5.13.tar.gz ] ; then
+    curl -O https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.13.tar.gz ;
+fi
+
+if [ ! -d linux-5.13 ] ; then
+    tar -xf linux-5.13.tar.gz ;
+fi
+
+git clone https://github.com/garandria/LBwCcache.git && cd LBwCcache
+singularity build -F build-env.sif docker://garandria/build-env
+singularity run --bind /srv/local/grandria:/srv/local/grandria build-env.sif python3 main.py --linux-src /srv/local/grandria/linux-5.13 --configurations /srv/local/grandria/b1
