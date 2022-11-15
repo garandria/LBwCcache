@@ -9,5 +9,7 @@ if [ ! -d /srv/local/grandria ] ; then
 fi
 
 cd /srv/local/grandria/
-singularity build -F build-env.sif docker://garandria/build-env
-singularity run build-env.sif
+# https://hub.docker.com/r/kernelci/build-base
+wget https://raw.githubusercontent.com/garandria/LBwCcache/master/prog.py
+singularity build -F kernelci-build-base.sif docker://kernelci/build-base
+singularity run --bind /srv/local/grandria:/srv/local/grandria kernelci-build-base.sif
