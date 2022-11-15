@@ -1,4 +1,4 @@
-FROM debian:stable
+FROM debian:bullseye
 
 # - Minimal requirements to build a Linux kernel
 #     https://docs.kernel.org/process/changes.html#current-minimal-requirements
@@ -6,32 +6,28 @@ FROM debian:stable
 #     https://github.com/TuxML/tuxml
 
 RUN apt-get update -y && apt-get install -y \
-    gcc gcc-10-plugin-dev g++ make binutils flex bison dwarves util-linux kmod \
+    gcc-10 gcc-10-plugin-dev g++ make binutils flex bison dwarves util-linux kmod \
     e2fsprogs jfsutils u-boot-tools reiserfsprogs xfsprogs squashfs-tools \
     btrfs-progs pcmciautils quota rsync xz-utils ppp libnfs-utils procps udev \
-    grub grub-common iptables tar openssl libelf-dev lzop libssl-dev \
+    grub-common iptables tar openssl libelf-dev lzop libssl-dev \
     bsdmainutils ccache bc sphinx-common sphinx-doc cpio lz4 liblz4-tool \
     pkg-config zstd git curl time python3 libc6-dev-i386 libc6-i386
 
+# grub
+
+RUN cd / && curl -O https://raw.githubusercontent.com/garandria/LBwCcache/master/gcc-10-plugin-dev-workaround-980609.patch && patch -p1 < gcc-10-plugin-dev-workaround-980609.patch
+
 WORKDIR /srv/local/grandria
 
-CMD \
-    if [ ! -d linux-5.13.tar.gz ] ; then \
-    curl -O https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.13.tar.gz \
-    fi
-
-CMD \
-    if [ ! -d linux-5.13 ] ; then \
-    tar -xf linux-5.13.tar.gz \
-    fi
-
-CMD \
-    git clone https://github.com/garandria/LBwCcache.git; \
-    git checkout test
-
-CMD \
-    cp -r LBwCcache/b1 . ;\
-    python3 LBwCcache/main.py --linux-src linux-5.13 --configurations b1
-
-# CMD tar -xf linux-5.13.tar.gz ; cd linux-5.13 ; echo "CONFIG_64BIT=y" > config-base ; \
-#     KCONFIG_ALLCONFIG=config-base make randconfig ; make -j96
+# CMD \
+#     if [ ! -d linux-5.13.tar.gz ] ; then \
+#     curl -O https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.13.tar.gz ;\
+#     fi ; \
+#     if [ ! -d linux-5.13 ] ; then \
+#     tar -xf linux-5.13.tar.gz ;\
+#     fi ; \
+#     git clone https://github.com/garandria/LBwCcache.git; \
+#     cd LBwCcache ;  git checkout test ; cp -r b1 .. ; cd .. ;\
+#     python3 LBwCcache/main.py \
+#     --linux-src /srv/local/grandria/linux-5.13 \
+#     --configurations /srv/local/grandria/b1
