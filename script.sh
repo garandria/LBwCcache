@@ -20,4 +20,4 @@ fi
 
 git clone https://github.com/garandria/LBwCcache.git && cd LBwCcache
 singularity build -F build-env.sif docker://garandria/build-env
-singularity run --bind /srv/local/grandria:/srv/local/grandria build-env.sif python3 main.py --linux-src /srv/local/grandria/linux-5.13 --configurations /srv/local/grandria/b1
+singularity run --bind /srv/local/grandria:/srv/local/grandria build-env.sif python3 main.py --linux-src /srv/local/grandria/linux-5.13 --configurations /srv/local/grandria/LBwCcache/b1
