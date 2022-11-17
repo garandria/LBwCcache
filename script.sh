@@ -21,3 +21,4 @@ fi
 git clone https://github.com/garandria/LBwCcache.git
 singularity build -F build-env.sif docker://garandria/build-env
 time singularity run --bind /srv/local/grandria:/srv/local/grandria build-env.sif python3 LBwCcache/main.py --linux-src /srv/local/grandria/linux-5.13 --configurations /srv/local/grandria/LBwCcache/b1 >> duration.time
+rsync -av /srv/local/grandria/linux-5.13 grandria@tatooine.irisa.fr:/srv/data1/nfs/linux/igrida/
