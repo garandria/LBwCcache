@@ -83,7 +83,10 @@ def build(jobs=None, config=None, with_time=True):
 # --------------------------------------------------------------------------
 
 def build_is_ok():
-    return not os.path.isfile(BUILD_STDERR)
+    with open(BULID_EXIT_STATUS, 'r') as status:
+        lines = status.readlines()
+    return int(lines[-1]) == 0
+    # return not os.path.isfile(BUILD_STDERR)
 
 def get_build_time():
     if not os.path.isfile(TIME_OUTPUT_FILE):
