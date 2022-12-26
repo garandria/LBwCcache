@@ -137,8 +137,6 @@ def git_config(prefix, field, val):
 # --------------------------------------------------------------------------
 
 def debug(msg, end="\n"):
-    with open("build.log", 'w') as log:
-        log.write(msg + end)
     print(msg, end=end, flush=True)
 
 # --------------------------------------------------------------------------
@@ -215,9 +213,6 @@ def main():
         debug("  - Committing source")
         git_commit("source")
 
-    out_csv = open(RESULTS, 'w')
-    out_csv.write("configuration time(s) ok\n")
-
     debug("* Builds")
     confs = os.listdir(conf_set)
     confs.sort()
@@ -234,7 +229,6 @@ def main():
         status = build(jobs=None, config=c_path, with_time=True)
         time = get_build_time()
         debug(f"{time}s, ok={status==0}")
-        out_csv.write(f"{c} {time} {status==0}\n")
         git_add_all()
         git_commit("Clean build")
         if args.ccache:
@@ -245,8 +239,6 @@ def main():
         if not args.keep_cache:
             ccache_clean()
         ccache_disable()
-
-    out_csv.close()
 
 
 if __name__ == "__main__":
