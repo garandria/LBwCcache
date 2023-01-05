@@ -3,12 +3,11 @@ import subprocess
 import shutil
 import argparse
 
-CCACHE_STATS = "/tmp/ccache-stats.txt"
+CCACHE_STATS = "/srv/local/grandria/ccache-stats.txt"
 TIME_OUTPUT_FILE = "time"
 BUILD_STDOUT = "stdout"
 BUILD_STDERR = "stderr"
 BUILD_EXIT_STATUS = "exit_status"
-RESULTS = "/tmp/result.csv"
 DUMMY_EMAIL = "tux@tux.com"
 DUMMY_NAME = "Tux"
 
