@@ -38,7 +38,8 @@ def ccache_setup():
     # for c in compilers:
     #     cmd += f"ln -s /usr/bin/ccache /usr/local/bin/{c} ; "
     cmd = "export PATH=/usr/lib/ccache:$PATH"
-    return call_cmd(cmd).returncode
+    # return call_cmd(cmd).returncode
+    os.system(cmd)
 
 def ccache_disable():
     # compilers = ["gcc", "g++", "cc", "c++"]
@@ -83,6 +84,9 @@ def build(jobs=None, config=None, with_time=True):
     return ret.returncode
 
 # --------------------------------------------------------------------------
+
+def build_status():
+    pass
 
 def build_is_ok():
     with open(BULID_EXIT_STATUS, 'r') as status:
