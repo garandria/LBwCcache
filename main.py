@@ -33,18 +33,21 @@ def ccache_stats(head, output):
     return call_cmd(cmd).returncode
 
 def ccache_setup():
-    compilers = ["gcc", "g++", "cc", "c++"]
-    cmd = ""
-    for c in compilers:
-        cmd += f"ln -s /usr/bin/ccache /usr/local/bin/{c} ; "
+    # compilers = ["gcc", "g++", "cc", "c++"]
+    # cmd = ""
+    # for c in compilers:
+    #     cmd += f"ln -s /usr/bin/ccache /usr/local/bin/{c} ; "
+    cmd = "export PATH=/usr/lib/ccache:$PATH"
     return call_cmd(cmd).returncode
 
 def ccache_disable():
-    compilers = ["gcc", "g++", "cc", "c++"]
-    cmd = ""
-    for c in compilers:
-        cmd += f"rm -f /usr/local/bin/{c} ; "
-    return call_cmd(cmd).returncode
+    # compilers = ["gcc", "g++", "cc", "c++"]
+    # cmd = ""
+    # for c in compilers:
+    #     cmd += f"rm -f /usr/local/bin/{c} ; "
+    # cmd = "echo $PATH | cut -d ':' -f2-"
+    # return call_cmd(cmd).returncode
+    pass
 
 # --------------------------------------------------------------------------
 
