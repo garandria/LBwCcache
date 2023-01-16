@@ -191,8 +191,8 @@ def main():
 
     if args.ccache:
         debug("* Ccache")
-        debug("  - Setting symbolic links")
-        ccache_setup()
+        # debug("  - Setting symbolic links")
+        # ccache_setup()
         debug("  - Setting cache size")
         ccache_set_size(1, 'T')
         debug("  - Cleaning cache")
@@ -242,10 +242,11 @@ def main():
             ccache_stats(c, CCACHE_STATS)
 
     if args.ccache:
-        debug("* Disabling Ccahe")
+        debug("* Disabling Ccache")
         if not args.keep_cache:
+            debug("* Cleaning cache")
             ccache_clean()
-        ccache_disable()
+        # ccache_disable()
 
 
 if __name__ == "__main__":
