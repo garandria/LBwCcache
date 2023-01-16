@@ -52,7 +52,7 @@ def ccache_disable():
 
 # --------------------------------------------------------------------------
 
-def build(jobs=None, config=None, with_time=True):
+def build(jobs=None, config=None, with_time=True, ccache=False):
     cmd = []
 
     if with_time:
@@ -69,6 +69,7 @@ def build(jobs=None, config=None, with_time=True):
         shutil.copy(config, ".config")
 
     cmd.append("make")
+    cmd.append('CC="ccache gcc"')
     cmd.append(f"-j{jobs}")
 
     cmd = " ".join(cmd)
@@ -232,7 +233,7 @@ def main():
                 if os.path.isfile(to_delete):
                     os.remove(to_delete)
         c_path = '/'.join([conf_set, c])
-        status = build(jobs=None, config=c_path, with_time=True)
+        status = build(jobs=None, config=c_path, with_time=True, ccache=args.ccache)
         time = get_build_time()
         debug(f"{time}s, ok={status==0}")
         git_add_all()
