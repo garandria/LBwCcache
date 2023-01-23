@@ -32,6 +32,9 @@ def ccache_stats(head, output):
     cmd = "; ".join(cmds)
     return call_cmd(cmd).returncode
 
+def ccache_set_dir(path):
+    return call_cmd(f"ccache --set-config cache_dir={path}")
+
 def ccache_setup():
     # compilers = ["gcc", "g++", "cc", "c++"]
     # cmd = ""
@@ -193,6 +196,8 @@ def main():
         debug("* Ccache")
         # debug("  - Setting symbolic links")
         # ccache_setup()
+        debug("  - Setting cache path")
+        ccache_set_dir("/srv/local/grandria/cache")
         debug("  - Setting cache size")
         ccache_set_size(1, 'T')
         debug("  - Cleaning cache")
