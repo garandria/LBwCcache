@@ -72,7 +72,8 @@ def build(jobs=None, config=None, with_time=True, ccache=False):
         shutil.copy(config, ".config")
 
     cmd.append("make")
-    cmd.append('CC="ccache gcc"')
+    if ccache:
+        cmd.append('CC="ccache gcc"')
     cmd.append(f"-j{jobs}")
 
     cmd = " ".join(cmd)
